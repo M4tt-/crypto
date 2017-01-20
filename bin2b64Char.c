@@ -2,9 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-int string_compare(char *, char *);
+extern int string_compare(char *, char *);
 
-char binChar2b64(char* bin)
+char bin2b64Char(char* bin)
 {
 	static char base64_table[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                                 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',

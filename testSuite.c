@@ -2,12 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-char bin2b64Char(char*);
-char* bin2b64Str(char*);
-char* bin2b64Str_test(char*);
-char* hex2bin(char);
-char* hexstr2bin(char*);
-char bin2hexChar(char*);
+extern char bin2b64Char(char*);
+extern char* bin2b64Str(char*);
+extern char* bin2b64Str_test(char*);
+extern char* hex2bin(char);
+extern char* hexstr2bin(char*);
+extern char bin2hexChar(char*);
+extern char* bin2hexStr(char*);
 
 void testSuite(void) {
  
@@ -34,6 +35,8 @@ void testSuite(void) {
 	char* bin21 = "1101";
 	char* bin22 = "1110";
 	char* bin23 = "1111";
+	char* bin24 = "111101010011101000111100111100011010111001";
+	char* bin25 = "100111010011101101011100111100011010111001000110100001101010";
 	char* hex1 = "AF";
 	char* hex2 = "9D2"; 
 	char* hex3 = "5c2B"; 
@@ -42,6 +45,20 @@ void testSuite(void) {
 	char* hex6 = "F5DC380AF";
 	char* hex7 = "F5DC380ABE";
 	char* hex8 = "F5DC380ABEC452F";
+	
+	printf("Testing hex2bin ...\n\n");
+	printf("Case 1: 'A':\n");
+	printf("Expected Result: 1010.\n");
+	printf("Actual Result:   %s.\n\n", hex2bin('A'));
+	printf("Case 2: 'B':\n");
+	printf("Expected Result: 1011.\n");
+	printf("Actual Result:   %s.\n\n", hex2bin('B'));
+	printf("Case 3: '7':\n");
+	printf("Expected Result: 0111.\n");
+	printf("Actual Result:   %s.\n\n", hex2bin('7'));
+	printf("Case 4: 'F':\n");
+	printf("Expected Result: 1111.\n");
+	printf("Actual Result:   %s.\n\n", hex2bin('F'));
 	
 	printf("Testing hexstr2bin ...\n\n");
 	printf("Case 1: 'Length of hex string equal to 2':\n");
@@ -69,29 +86,6 @@ void testSuite(void) {
 	printf("Expected Result: 111101011101110000111000000010101011111011000100010100101111.\n");
 	printf("Actual Result:   %s.\n\n", hexstr2bin(hex8));
 
-	
-    printf("Testing bin2b64Str ...\n\n");
-	printf("Case 1: 'Length of binary string greater than 6 (8 bits)':\n");
-	printf("Expected Result: Dl\n");
-	printf("Actual Result:   %s\n\n", bin2b64Str(bin1));
-	printf("Case 2: 'Length of binary string greater than 6 (12 bits)':\n");
-	printf("Expected Result: A+\n");
-	printf("Actual Result:   %s\n\n", bin2b64Str(bin2));
-	printf("Case 3: 'Length of binary string greater than 6 (13 bits)':\n");
-	printf("Expected Result: BBm\n");
-	printf("Actual Result:   %s\n\n", bin2b64Str(bin3));
-	printf("Case 4: 'Length of binary string greater than 6 (19 bits)':\n");
-	printf("Expected Result: BBmV\n");
-	printf("Actual Result:   %s\n\n", bin2b64Str(bin4));
-	printf("Case 5: 'Length of binary string greater than 6 (24 bits)':\n");
-	printf("Expected Result: 89+/\n");
-	printf("Actual Result:   %s\n\n", bin2b64Str(bin5));
-	printf("Case 6: 'Length of binary string greater than 6 (36 bits)':\n");
-	printf("Expected Result: hyb29t\n");
-	printf("Actual Result:   %s\n\n", bin2b64Str(bin6));
-	printf("Case 7: 'Length of binary string greater than 6 (54 bits)':\n");
-	printf("Expected Result: uvwxyz012\n");
-	printf("Actual Result:   %s\n\n", bin2b64Str(bin7));
 
     printf("Testing bin2hexChar ...\n\n");
 	printf("Case 1: 0000:\n");
@@ -143,6 +137,31 @@ void testSuite(void) {
 	printf("Expected Result: F\n");
 	printf("Actual Result:   %c\n\n", bin2hexChar(bin23));
 
+	
+    printf("Testing bin2b64Str ...\n\n");
+	printf("Case 1: 'Length of binary string greater than 6 (8 bits)':\n");
+	printf("Expected Result: Dl\n");
+	printf("Actual Result:   %s\n\n", bin2b64Str(bin1));
+	printf("Case 2: 'Length of binary string greater than 6 (12 bits)':\n");
+	printf("Expected Result: A+\n");
+	printf("Actual Result:   %s\n\n", bin2b64Str(bin2));
+	printf("Case 3: 'Length of binary string greater than 6 (13 bits)':\n");
+	printf("Expected Result: BBm\n");
+	printf("Actual Result:   %s\n\n", bin2b64Str(bin3));
+	printf("Case 4: 'Length of binary string greater than 6 (19 bits)':\n");
+	printf("Expected Result: BBmV\n");
+	printf("Actual Result:   %s\n\n", bin2b64Str(bin4));
+	printf("Case 5: 'Length of binary string greater than 6 (24 bits)':\n");
+	printf("Expected Result: 89+/\n");
+	printf("Actual Result:   %s\n\n", bin2b64Str(bin5));
+	printf("Case 6: 'Length of binary string greater than 6 (36 bits)':\n");
+	printf("Expected Result: hyb29t\n");
+	printf("Actual Result:   %s\n\n", bin2b64Str(bin6));
+	printf("Case 7: 'Length of binary string greater than 6 (54 bits)':\n");
+	printf("Expected Result: uvwxyz012\n");
+	printf("Actual Result:   %s\n\n", bin2b64Str(bin7));
+
+
 	printf("Testing bin2hexStr ...\n\n");
 	printf("Case 1: 11100101 (8 bits):\n");
 	printf("Expected Result: E5\n");
@@ -162,8 +181,17 @@ void testSuite(void) {
 	printf("Case 6: 100001110010011011110110111101101101 (36 bits):\n");
 	printf("Expected Result: 8726F6F6D\n");
 	printf("Actual Result:   %s\n\n", bin2hexStr(bin6));
-	printf("Case 7: 101110101111110000110001110010110011110100110101110110 (54 bits):\n");
+	printf("Case 7: 111101010011101000111100111100011010111001 (42 bits):\n");
+	printf("Expected Result: 3D4E8F3C6B9\n");
+	printf("Actual Result:   %s\n\n", bin2hexStr(bin24));
+	
+	printf("Case 8: 101110101111110000110001110010110011110100110101110110 (54 bits):\n");
 	printf("Expected Result: 2EBF0C72CF4D76\n");
 	printf("Actual Result:   %s\n\n", bin2hexStr(bin7));
+	/*
+	printf("Case 9: 100111010011101101011100111100011010111001000110100001101010 (60 bits):\n");
+	printf("Expected Result: 9D3B5CF1AE4686A\n");
+	printf("Actual Result:   %s\n\n", bin2hexStr(bin25));
+	*/
 
 }

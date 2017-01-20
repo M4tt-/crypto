@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 int string_compare(char str1[], char str2[])
 {
     int ctr=0;

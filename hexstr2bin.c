@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char* hex2bin(char);
+extern char* hex2bin(char);
 
 char* hexstr2bin(char *hex_str) {
  

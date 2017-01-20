@@ -1,4 +1,8 @@
-int string_compare(char *, char*);
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+extern int string_compare(char *, char*);
 
 char bin2hexChar(char* bin){
 
