@@ -962,9 +962,9 @@ void printNbitBin(int n){
 }
 
 /***************************************************************
-*														*
-*			// textFile2Array() //							*
-*														*
+*																*
+*			// textFile2Array() //								*
+*																*
 ****************************************************************/
 char** textFile2Array(char* file){
 
@@ -1273,7 +1273,7 @@ int totient(int x){
 *			// modexp() //									   *
 *															   *
 ****************************************************************/
-int modexp(int, int, int){
+int modexp(int x, int y, int n){
 
 	int s,t,u;
 	s = 1;
