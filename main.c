@@ -6,7 +6,7 @@
  *                                                                          *
  * Purpose : Test Suite for crypto library				                    *
  *                                                                          *
- * Last Upated : 01-31-17		 							 				*
+ * Last Upated : 02-14-17		 							 				*
  *																			*
  ****************************************************************************/
 
@@ -15,6 +15,15 @@
 #include <stdlib.h>
 #include <math.h>
 #include "crutil.h"
+//#include "GnuWin32\include\openssl\opensslconf.h"
+//#include "GnuWin32\include\openssl\e_os2.h"
+//#include "GnuWin32\include\openssl\bio.h"
+//#include "GnuWin32\include\openssl\conf.h"
+//#include "GnuWin32\include\openssl\evp.h"
+//#include "GnuWin32\include\openssl\err.h"
+//#include "GnuWin32\include\openssl\aes.h"
+
+#define ECB 1
 
 int main(void) {
  	
@@ -32,6 +41,7 @@ int main(void) {
 	char* case2 = hex2bin('B');
 	char* case3 = hex2bin('7');
 	char* case4 = hex2bin('E');
+	
 	printf("Testing hex2bin ...\n\n");
 	printf("Case 1: 'A':\n");
 	printf("Expected Result: 1010.\n");
@@ -519,6 +529,7 @@ int main(void) {
 	case1 = bin2prasciiStr("0110100001100101011011000110110001101111");
 	case2 = bin2prasciiStr("01100101010101000100000101001111010010010100111000100000011100110100100001010010010001000100110001010101");
 	case3 = bin2prasciiStr("0100110100110100011101000111010000101101");
+	case4 = bin2prasciiStr("0100100101101100011011110111011001100101011110010110111101110101");
 	printf("Testing bin2prasciiStr ...\n\n");
 	printf("Case 1: Converting 0110100001100101011011000110110001101111 to ASCII:\n");
 	printf("Expected Result: hello\n");
@@ -529,9 +540,14 @@ int main(void) {
 	printf("Case 3: Converting 0100110100110100011101000111010000101101 to ASCII:\n");
 	printf("Expected Result: M4tt-\n");
 	printf("Actual Result:   %s\n\n", case3);
+	
+	printf("Case 4: Converting Kristin's Valentine's Day card to ASCII...:\n");
+	printf("Expected Result: i love you\n");
+	printf("Actual Result:   %s\n\n", case4);
 	free(case1);
 	free(case2);
 	free(case3);
+	free(case4);
 
 	case1 = prasciiChar2bin('E');
 	case2 = prasciiChar2bin('T');
@@ -866,7 +882,7 @@ int main(void) {
 		}
 	}
 	free(byteSizes);
-	*/
+	
 	char** array1 = (char**)malloc((2)*sizeof(char*));
 	for(int i = 0; i < 2; ++i){
 		array1[i] = (char*)malloc(3*sizeof(char));
@@ -1106,36 +1122,38 @@ int main(void) {
 	free(c6s1);
 	free(c6s1bin);
 	free(plaintext);
-
-	printf("CryptoPals Challenge 7, Set 1\n");
+*/
+	//printf("CryptoPals Challenge 7, Set 1\n");
 	/* Convert to ciphertext to hex string for convenience */
 	char* c7s1hex = bin2hexStr(b642bin(textFile2String("c:\\Users\\mtrun\\c7s1.txt")));
-	char* key = prasciiStr2hex("YELLOW SUBMARINE"
-	printf("Printing hex ciphertext (%d chars): %s\n\nPrinting hex key: %s\n\nPrinting number of blocks: %d\n\n",strlen(c7s1hex), c7s1hex,key, strlen(c7s1hex)/32);
+	char* key = prasciiStr2hex("YELLOW SUBMARINE");
+	//printf("Printing hex ciphertext (%d chars): %s\n\nPrinting hex key: %s\n\nPrinting number of blocks: %d\n\n",strlen(c7s1hex), c7s1hex,key, strlen(c7s1hex)/32);
 	
-	
-	for(int i = 0; i < strlen(c7s1hex)/32; ++i){ // For every 16 bytes of the hex cipher text ...
-		char** fourByFour_T = malloc(pow(2,4)*sizeof(char*)); // Declare a 4byte x 4byte matrix
+	char* output[16];
+	//aes_decrypt(c7s1hex, output, "59454C4C4F57205355424D4152494E45", 32);
+	//printf("Prnting output: %s\n", output);
+	//for(int i = 0; i < strlen(c7s1hex)/32; ++i){ // For every 16 bytes of the hex cipher text ...
+		//char** fourByFour_T = malloc(pow(2,4)*sizeof(char*)); // Declare a 4byte x 4byte matrix
 
 		/* Cast every 16 bytes into a 4x4 matrix / XOR the relevant bytes with the relevant key bytes */
-		for(int j = 0; j < 4; ++j){
-			fourByFour_T[j] = malloc(9);
-			memcpy(fourByFour_T[j],&c7s1hex[32*i + 8*j],8);
-			fourByFour_T[8] = '\0';
-		}
-		printf("Printing the 4-byte x 4-byte matrix:\n");
-		for(int k = 0; k < 4;++k){
-			printf("Row %d: %s\n",k, fourByFour_T[k]);
-		}
-
-		/* Transpose the matrix -- AES wants consecutive bytes in columns, this puts bytes into rows */
+		//for(int j = 0; j < 4; ++j){
+			//fourByFour_T[j] = malloc(9);
+			//memcpy(fourByFour_T[j],&c7s1hex[32*i + 8*j],8);
+			//fourByFour_T[8] = '\0';
+		//}
+		//printf("Printing the 4-byte x 4-byte matrix:\n");
+		//for(int k = 0; k < 4;++k){
+		//	printf("Row %d: %s\n",k, fourByFour_T[k]);
+		//}
+		
+		/* Transpose the matrix -- AES wants consecutive bytes in columns, this puts bytes into rows 
 		char** fourByFour = transpose2DCharArray(fourByFour_T,4,8);
 		printf("Printing the 4-byte x 4-byte matrix:\n");
 		for(int k = 0; k < 4;++k){
 			printf("Row %d: %s\n",k, fourByFour_T[k]);
 		}
 
-		/* Perform the row swapping */
+		/* Perform the row swapping 
 	}
 
 	char** c7s1bin_t = transposeCharArray(fourByN,strlen(c7s1bin)/32,32);

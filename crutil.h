@@ -6,7 +6,7 @@
  *                                                                          *
  * Purpose : Header for crypto library			  		                    *
  *                                                                          *
- * Last Upated : 01-31-17   							 				    *
+ * Last Upated : 02-14-17   							 				    *
  *																		    *
  ****************************************************************************/
 
@@ -58,6 +58,11 @@ extern int findMinElement(double*, int); // Returns the index of the smallest el
 extern double scorePlaintext(char*); // Scores plaintext based on common letter frequency.
 extern double scorePlaintext_chiSquare(char*); // Scores plaintext based on letter frequency and minimizing a chi squared test statistic
 extern int getHammingDistance(char*, char*); // Returns the number of differing bits between two strings of equal length.
+extern int gcd(int,int); // Returns the greatest common divisor of two integers via Euclid's algorithm
+extern int multiple_gcd(int,int*); // Returns the greatest common divisor of two integers via Euclid's algorithm
+extern int totient(int); // Returns the number of elements in the reduced set of residues of an int. This is Euler's totient function.
+extern int modexp(int, int, int); // Performs addition chaining to exponentiate a number(arg1) modulo n (arg3)
+extern int chinese_remainder(size_t, int*, int*); //Returns n such that n == u[k]%m[k]and n < m[0]*m[1]*...*m[r-1]. are1 is numel in arrays arg2 (pairwise rprime moduli) and arg3(coeff array)
 
 /*********************************************************************
 *					XOR-CIPHER STUFF								 *
